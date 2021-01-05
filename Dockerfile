@@ -1,15 +1,15 @@
 FROM --platform=${TARGETPLATFORM} alpine:latest
-LABEL maintainer "V2Fly Community <dev@v2fly.org>"
+LABEL maintainer "V2Log <mx@rmbz.net>"
 
 WORKDIR /root
 ARG TARGETPLATFORM
-COPY v2ray.sh /root/v2ray.sh
+COPY v2log.sh /root/v2log.sh
 
 RUN set -ex \
 	&& apk add --no-cache tzdata openssl ca-certificates \
-	&& mkdir -p /etc/v2ray /usr/local/share/v2ray /var/log/v2ray \
-	&& chmod +x /root/v2ray.sh \
-	&& /root/v2ray.sh "${TARGETPLATFORM}"
+	&& mkdir -p /etc/v2log /usr/local/share/v2log /var/log/v2log \
+	&& chmod +x /root/v2log.sh \
+	&& /root/v2log.sh "${TARGETPLATFORM}"
 
-VOLUME /etc/v2ray
-CMD [ "/usr/bin/v2ray", "-config", "/etc/v2ray/config.json" ]
+VOLUME /etc/v2log
+CMD [ "/usr/bin/v2log", "-config", "/etc/v2log/config.json" ]
