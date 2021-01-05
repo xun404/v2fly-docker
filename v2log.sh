@@ -35,12 +35,13 @@ fi
 [ -z "${ARCH}" ] && echo "Error: Not supported OS Architecture" && exit 1
 
 # Download files
-V2LOG_FILE="v2log-linux-${ARCH}.zip"
-DGST_FILE="v2log-linux-${ARCH}.zip.dgst"
+V2LOG_FILE="v2ray-linux-${ARCH}.zip"
+DGST_FILE="v2ray-linux-${ARCH}.zip.dgst"
 echo "Downloading binary file: ${V2LOG_FILE}"
 echo "Downloading binary file: ${DGST_FILE}"
 
-TAG=$(wget -qO- https://raw.githubusercontent.com/v2fly/docker/master/ReleaseTag | head -n1)
+TAG=$(wget -qO- https://raw.githubusercontent.com/xun404/v2fly-docker/master/ReleaseTag | head -n1)
+echo "V2ray Version Tag: ${TAG}"
 wget -O ${PWD}/v2log.zip https://github.com/v2fly/v2ray-core/releases/download/${TAG}/${V2LOG_FILE} > /dev/null 2>&1
 wget -O ${PWD}/v2log.zip.dgst https://github.com/v2fly/v2ray-core/releases/download/${TAG}/${DGST_FILE} > /dev/null 2>&1
 
