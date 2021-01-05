@@ -65,8 +65,8 @@ echo "Prepare to use"
 unzip v2log.zip && chmod +x v2ray v2ctl
 mv v2ray v2log
 mv v2log v2ctl /usr/bin/
-mv geosite.dat geoip.dat /usr/local/share/v2log/
-mv config.json /etc/v2log/config.json
+rm -rfv geosite.dat geoip.dat config.json
+touch /usr/bin/.undat
 
 # Clean
 rm -rf ${PWD}/*
