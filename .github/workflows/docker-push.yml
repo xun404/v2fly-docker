@@ -33,14 +33,14 @@ jobs:
         run: |
           docker buildx build --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x \
           --output "type=image,push=true" \
-          --tag "${{ secrets.DOCKER_USERNAME }}/v2fly-core:latest" \
+          --tag "${{ secrets.DOCKER_USERNAME }}/v2log-core:latest" \
           --file Dockerfile .
        
       - name: Build tag
         run: |
           docker buildx build --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x \
           --output "type=image,push=true" \
-          --tag "${{ secrets.DOCKER_USERNAME }}/v2fly-core:${{ env.TAG }}" \
+          --tag "${{ secrets.DOCKER_USERNAME }}/v2log-core:${{ env.TAG }}" \
           --file Dockerfile .
   test:
     needs: build
