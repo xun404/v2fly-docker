@@ -7,7 +7,7 @@ ARG TAG
 COPY v2log.sh "${WORKDIR}"/v2log.sh
 
 RUN set -ex \
-    && apk add --no-cache ca-certificates \
+    && apk add --no-cache ca-certificates openssl \
     && mkdir -p /etc/v2log /usr/local/share/v2log /var/log/v2log \
     # forward request and error logs to docker log collector
     && ln -sf /dev/stdout /var/log/v2log/access.log \
