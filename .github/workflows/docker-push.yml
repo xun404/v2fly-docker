@@ -5,13 +5,14 @@ on:
         description: "The tag version you want to build"
   push:
     paths:
-      - "v2ray.sh"
+      - "v2log.sh"
+      - "ReleaseTag"
       - "Dockerfile"
       - ".github/workflows/docker-push.yml"
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
-      - "v2ray.sh"
+      - "v2log.sh"
       - "Dockerfile"
       - ".github/workflows/docker-push.yml"
 

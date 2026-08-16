@@ -40,8 +40,11 @@ DGST_FILE="v2ray-linux-${ARCH}.zip.dgst"
 echo "Downloading binary file: ${V2LOG_FILE}"
 echo "Downloading binary file: ${DGST_FILE}"
 
-TAG=$(wget -qO- https://raw.githubusercontent.com/xun404/v2fly-docker/master/ReleaseTag | head -n1)
-echo "V2ray Version Tag: ${TAG}"
+TAG=$2
+if [ -z "${TAG}" ]; then
+    TAG=$(wget -qO- https://raw.githubusercontent.com/xun404/v2fly-docker/master/ReleaseTag | head -n1)
+fi
+echo "V2Log Version Tag: ${TAG}"
 wget -O ${PWD}/v2log.zip https://github.com/v2fly/v2ray-core/releases/download/${TAG}/${V2LOG_FILE} > /dev/null 2>&1
 wget -O ${PWD}/v2log.zip.dgst https://github.com/v2fly/v2ray-core/releases/download/${TAG}/${DGST_FILE} > /dev/null 2>&1
 
@@ -50,9 +53,9 @@ if [ $? -ne 0 ]; then
 fi
 echo "Download binary file: ${V2LOG_FILE} ${DGST_FILE} completed"
 
-# Check SHA512
-LOCAL=$(openssl dgst -sha512 v2log.zip | sed 's/([^)]*)//g')
-STR=$(cat v2log.zip.dgst | grep 'SHA512' | head -n1)
+# Check SHA512 (hex-to-hex, tolerant of SHA512/SHA-512/SHA2-512 spellings)
+LOCAL=$(openssl dgst -sha512 v2log.zip | awk '{print $NF}')
+STR=$(grep -iE 'sha-?2?-?512' v2log.zip.dgst | head -n1 | awk '{print $NF}')
 
 if [ "${LOCAL}" = "${STR}" ]; then
     echo " Check passed" && rm -fv v2log.zip.dgst
